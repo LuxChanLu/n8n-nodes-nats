@@ -35,7 +35,7 @@
     "nodes": [
       "dist/nodes/Nats/Nats.node.js",
       "dist/nodes/JetStream/JetStream.node.js",
-      "dist/nodes/JetStreamTrigger/JetStreamTrigger.node.js"
+      "dist/nodes/JetStream/JetStreamTrigger.node.js"
     ]
   },
   "devDependencies": {
