@@ -7,7 +7,7 @@ interface JSConnection {
 }
 
 export const jsNatsConnection = async (func: IAllExecuteFunctions, idx: number): Promise<JSConnection>  => {
-	const credentials = await func.getCredentials('nats', idx)
+	const credentials = await func.getCredentials('natsApi', idx)
 	const nats = await connect(credentials)
 	const jsOptions = {
 		apiPrefix: credentials['jsApiPrefix'] as string,

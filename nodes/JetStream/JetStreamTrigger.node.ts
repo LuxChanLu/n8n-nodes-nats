@@ -16,7 +16,7 @@ export class JetStreamTrigger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'NATS - JetStream Trigger',
 		name: 'jetStreamTrigger',
-		icon: 'file:nats.svg',
+		icon: 'file:jetstream.svg',
 		group: ['trigger'],
 		version: 1,
 		description: 'Consumer JetStream stream message',

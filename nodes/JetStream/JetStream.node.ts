@@ -19,7 +19,7 @@ export class JetStream implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'NATS - JetStream',
 		name: 'jetStream',
-		icon: 'file:nats.svg',
+		icon: 'file:jetstream.svg',
 		group: ['output'],
 		version: 1,
 		description: 'NATS - JetStream',
