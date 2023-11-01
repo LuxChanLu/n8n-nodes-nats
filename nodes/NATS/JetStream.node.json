@@ -1,0 +1,18 @@
+{
+	"node": "n8n-nodes-nats.JetStream",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Communication", "Development"],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://docs.nats.io/running-a-nats-service/configuration/securing_nats/auth_intro"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://docs.nats.io/nats-concepts/jetstream"
+			}
+		]
+	}
+}
