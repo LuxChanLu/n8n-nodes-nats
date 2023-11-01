@@ -15,7 +15,7 @@ import { jsNatsConnection } from './common';
 export class JetStreamTrigger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'NATS - JetStream Trigger',
-		name: 'jetstreamTrigger',
+		name: 'jetStreamTrigger',
 		icon: 'file:nats.svg',
 		group: ['trigger'],
 		version: 1,
@@ -39,7 +39,7 @@ export class JetStreamTrigger implements INodeType {
 		outputs: ['main'],
 		credentials: [
 			{
-				name: 'nats',
+				name: 'natsApi',
 				required: true,
 			},
 		],

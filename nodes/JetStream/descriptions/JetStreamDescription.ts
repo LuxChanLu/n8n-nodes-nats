@@ -1,6 +1,6 @@
 import type { INodeProperties } from 'n8n-workflow';
 
-export const natsOperations: INodeProperties[] = [
+export const jetstreamOperations: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',
@@ -14,14 +14,32 @@ export const natsOperations: INodeProperties[] = [
 				description: 'Publish in a subject',
 				action: 'Publish in a subject',
 			},
+			{
+				name: 'Acknowledge a Message',
+				value: 'acknowledge',
+				description: 'Acknowledge a previously received message',
+				action: 'Acknowledge a previously received message',
+			},
 		],
+	},
+	{
+		displayName:
+			'Will acknowledge an message from the stream consumer earlier in the workflow by a NATS - JetStream Trigger node',
+		name: 'acknowledgeMessage',
+		type: 'notice',
+		default: '',
+		displayOptions: {
+			show: {
+				operation: ['acknowledge'],
+			},
+		},
 	},
 ];
 
 
-export const natsDescription: INodeProperties[] = [
+export const jetstreamDescription: INodeProperties[] = [
 	/* -------------------------------------------------------------------------- */
-	/*                               nats:publish                                 */
+	/*                            jetstream:publish                               */
 	/* -------------------------------------------------------------------------- */
 	{
 		displayName: 'Subject',
@@ -40,13 +58,18 @@ export const natsDescription: INodeProperties[] = [
 		displayName: 'Payload Content Type',
 		name: 'contentType',
 		type: 'options',
+		displayOptions: {
+			show: {
+				operation: ['publish'],
+			},
+		},
 		options: [
 			{
 				name: 'String',
 				value: 'string',
 			},
 			{
-				name: 'n8n Binary Data',
+				name: 'N8n Binary Data',
 				value: 'binaryData',
 			},
 		],
@@ -67,7 +90,7 @@ export const natsDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Payload binary property name',
+		displayName: 'Payload Binary Property Name',
 		name: 'payloadBinaryPropertyName',
 		type: 'string',
 		default: '',

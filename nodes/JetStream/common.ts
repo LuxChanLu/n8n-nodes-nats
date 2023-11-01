@@ -1,9 +1,5 @@
-import { IAllExecuteFunctions, ICredentialTestFunctions, ICredentialsDecrypted, IExecuteFunctions, INodeCredentialTestResult } from "n8n-workflow";
+import { IAllExecuteFunctions } from "n8n-workflow";
 import { JetStreamClient, JetStreamOptions, NatsConnection, connect } from "nats";
-
-export const natsConnection = async (func: IExecuteFunctions, idx: number): Promise<NatsConnection>  => {
-	return connect(await func.getCredentials('nats', idx))
-}
 
 interface JSConnection {
 	nats: NatsConnection
@@ -25,19 +21,4 @@ export const jsNatsConnection = async (func: IAllExecuteFunctions, idx: number):
 		jsOptions.domain = undefined
 	}
 	return { nats, js: nats.jetstream() }
-}
-
-export async function natsCredTest(this: ICredentialTestFunctions, credential: ICredentialsDecrypted): Promise<INodeCredentialTestResult> {
-	try {
-		await (await connect(credential.data)).rtt()
-	} catch (error) {
-		return {
-			status: 'Error',
-			message: `Settings are not valid or authentification failed: ${error}`,
-		};
-	}
-	return {
-		status: 'OK',
-		message: 'Authentication successful!',
-	};
 }

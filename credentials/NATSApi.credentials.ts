@@ -3,28 +3,10 @@ import { defaultOptions } from 'nats/lib/nats-base-client/options';
 
 const DefaultOptions = defaultOptions()
 
-    // /**
-    //  * Prefix required to interact with JetStream. Must match
-    //  * server configuration.
-    //  */
-    // apiPrefix?: string;
-    // /**
-    //  * Number of milliseconds to wait for a JetStream API request.
-    //  * @default ConnectionOptions.timeout
-    //  * @see ConnectionOptions.timeout
-    //  */
-    // timeout?: number;
-    // /**
-    //  * Name of the JetStream domain. This value automatically modifies
-    //  * the default JetStream apiPrefix.
-    //  */
-    // domain?: string;
+export class NATSApi implements ICredentialType {
+	name = 'natsApi';
 
-
-export class NATS implements ICredentialType {
-	name = 'nats';
-
-	displayName = 'NATS';
+	displayName = 'NATS API';
 
 	properties: INodeProperties[] = [
 		{
@@ -57,6 +39,7 @@ export class NATS implements ICredentialType {
 			displayName: 'TLS Key',
 			name: 'tls.key',
 			type: 'string',
+			typeOptions: { password: true },
 			default: undefined,
 			placeholder: 'PEM key',
 			description: 'TLS Key'
@@ -83,6 +66,7 @@ export class NATS implements ICredentialType {
 			displayName: 'Pass',
 			name: 'pass',
 			type: 'string',
+			typeOptions: { password: true },
 			default: DefaultOptions.pass,
 			placeholder: 'pass',
 			description: 'Sets the username for a client connection.'
@@ -91,6 +75,7 @@ export class NATS implements ICredentialType {
 			displayName: 'Token',
 			name: 'token',
 			type: 'string',
+			typeOptions: { password: true },
 			default: DefaultOptions.token,
 			placeholder: 'token',
 			description: 'Set to a client authentication token. Note that these tokens are a specific authentication strategy on the nats-server.'

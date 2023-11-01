@@ -10,14 +10,15 @@ import {
 	jetstreamDescription, jetstreamOperations
 } from './descriptions';
 
-import { jsNatsConnection, natsCredTest } from './common';
+import { jsNatsConnection } from './common';
+import { natsCredTest } from '../common';
 
 import * as Actions from './actions';
 
 export class JetStream implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'NATS - JetStream',
-		name: 'jetstream',
+		name: 'jetStream',
 		icon: 'file:nats.svg',
 		group: ['output'],
 		version: 1,
@@ -30,7 +31,7 @@ export class JetStream implements INodeType {
 		outputs: ['main'],
 		credentials: [
 			{
-				name: 'nats',
+				name: 'natsApi',
 				required: true,
 				testedBy: 'natsCredTest',
 			},

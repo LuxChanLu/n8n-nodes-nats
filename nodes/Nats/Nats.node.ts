@@ -10,11 +10,12 @@ import {
 	natsDescription, natsOperations
 } from './descriptions';
 
-import { natsConnection, natsCredTest } from './common';
+import { natsConnection } from './common';
+import { natsCredTest } from '../common';
 
 import * as Actions from './actions';
 
-export class NATS implements INodeType {
+export class Nats implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'NATS',
 		name: 'nats',
@@ -30,7 +31,7 @@ export class NATS implements INodeType {
 		outputs: ['main'],
 		credentials: [
 			{
-				name: 'nats',
+				name: 'natsApi',
 				required: true,
 				testedBy: 'natsCredTest',
 			},

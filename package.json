@@ -1,12 +1,12 @@
 {
   "name": "n8n-nodes-nats",
   "version": "1.0.0",
-  "description": "",
+  "description": "NATS Nodes for n8n",
   "keywords": [
     "n8n-community-node-package"
   ],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/LuxChanLu/n8n-nodes-nats",
   "author": {
     "name": "Hugo Meyronneinc",
     "email": "hugo@lxc.lu"
@@ -30,12 +30,12 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/NATS.credentials.js"
+      "dist/credentials/NATSApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/NATS/NATS.node.js",
-      "dist/nodes/NATS/JetStream.node.js",
-      "dist/nodes/NATS/JetStreamTrigger.node.js"
+      "dist/nodes/Nats/Nats.node.js",
+      "dist/nodes/JetStream/JetStream.node.js",
+      "dist/nodes/JetStreamTrigger/JetStreamTrigger.node.js"
     ]
   },
   "devDependencies": {
