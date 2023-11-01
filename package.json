@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-nats",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "NATS Nodes for n8n",
   "keywords": [
     "n8n-community-node-package"
