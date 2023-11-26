@@ -5,8 +5,8 @@ export const natsConnection = async (func: IAllExecuteFunctions, idx: number): P
 	const { user, pass, token, seed, jwtSeed, jwt, creds, ...options } = await func.getCredentials('natsApi', idx)
 	const authenticators = ([] as Authenticator[])
 
-	if (user && pass && (user as string).length > 0 && (pass as string).length > 0) {
-		authenticators.push(usernamePasswordAuthenticator(user as string, pass as string))
+	if (user && (user as string).length > 0) {
+		authenticators.push(usernamePasswordAuthenticator(user as string, pass && (pass as string).length > 0 ? pass as string : undefined))
 	}
 
 	if (token && (token as string).length > 0) {
@@ -17,8 +17,8 @@ export const natsConnection = async (func: IAllExecuteFunctions, idx: number): P
 		authenticators.push(nkeyAuthenticator(new TextEncoder().encode(seed as string)))
 	}
 
-	if (jwtSeed && (jwtSeed as string).length > 0 && jwt && (jwt as string).length > 0) {
-		authenticators.push(jwtAuthenticator(jwtSeed as string, new TextEncoder().encode(jwt as string)))
+	if (jwt && (jwt as string).length > 0) {
+		authenticators.push(jwtAuthenticator(jwt as string, (jwtSeed && (jwtSeed as string).length > 0) ? new TextEncoder().encode(jwtSeed as string) : undefined))
 	}
 
 	if (creds && (creds as string).length > 0) {
