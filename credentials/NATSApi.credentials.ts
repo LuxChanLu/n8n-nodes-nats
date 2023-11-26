@@ -55,7 +55,7 @@ export class NATSApi implements ICredentialType {
 
 		// Server authentification
 		{
-			displayName: 'User',
+			displayName: '[Authentification User/Pass] User',
 			name: 'user',
 			type: 'string',
 			default: DefaultOptions.user,
@@ -63,7 +63,7 @@ export class NATSApi implements ICredentialType {
 			description: 'Sets the username for a client connection.'
 		},
 		{
-			displayName: 'Pass',
+			displayName: '[Authentification User/Pass] Pass',
 			name: 'pass',
 			type: 'string',
 			typeOptions: { password: true },
@@ -71,14 +71,54 @@ export class NATSApi implements ICredentialType {
 			placeholder: 'pass',
 			description: 'Sets the username for a client connection.'
 		},
+
 		{
-			displayName: 'Token',
+			displayName: '[Authentification Token] Token',
 			name: 'token',
 			type: 'string',
 			typeOptions: { password: true },
 			default: DefaultOptions.token,
 			placeholder: 'token',
 			description: 'Set to a client authentication token. Note that these tokens are a specific authentication strategy on the nats-server.'
+		},
+
+		{
+			displayName: '[Authentification NKey] Seed',
+			name: 'seed',
+			type: 'string',
+			typeOptions: { password: true },
+			default: undefined,
+			placeholder: '[Authentification] NKey seed',
+			description: '[Authentification] NKey seed'
+		},
+
+		{
+			displayName: '[Authentification JWT] Seed',
+			name: 'jwtSeed',
+			type: 'string',
+			typeOptions: { password: true },
+			default: undefined,
+			placeholder: '[Authentification] JWT seed',
+			description: '[Authentification] JWT seed'
+		},
+		{
+			displayName: '[Authentification JWT] Token',
+			name: 'jwt',
+			type: 'string',
+			typeOptions: { password: true },
+			default: undefined,
+			placeholder: '[Authentification] JWT token',
+			description: '[Authentification] JWT token'
+		},
+
+		{
+			displayName: '[Authentification Creds] Creds',
+			name: 'creds',
+			type: 'string',
+			typeOptions: { password: true },
+			default: undefined,
+			placeholder: '[Authentification] Creds creds',
+			description: '[Authentification] Creds creds'
 		},
 		{
 			displayName: 'Ignore auth error abort',
