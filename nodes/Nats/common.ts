@@ -2,7 +2,7 @@ import { IAllExecuteFunctions } from "n8n-workflow";
 import { NatsConnection, connect, usernamePasswordAuthenticator, tokenAuthenticator, nkeyAuthenticator, jwtAuthenticator, credsAuthenticator, Authenticator } from "nats";
 
 export const natsConnection = async (func: IAllExecuteFunctions, idx: number): Promise<NatsConnection>  => {
-	const { user, pass, token, seed, jwtSeed, jwt, creds, ...options } = await func.getCredentials('natsApi', idx)
+	const { user, pass, token, seed, jwtSeed, jwt, creds, tlsCa, tlsCert, tlsKey, ...options } = await func.getCredentials('natsApi', idx)
 	const authenticators = ([] as Authenticator[])
 
 	if (user && (user as string).length > 0) {
@@ -23,6 +23,10 @@ export const natsConnection = async (func: IAllExecuteFunctions, idx: number): P
 
 	if (creds && (creds as string).length > 0) {
 		authenticators.push(credsAuthenticator(new TextEncoder().encode(creds as string)))
+	}
+
+	if (tlsCa || tlsCert || tlsKey) {
+		options.tls = { ca: tlsCa, cert: tlsCert, key: tlsKey }
 	}
 
 	return connect({ ...options, authenticator: authenticators })

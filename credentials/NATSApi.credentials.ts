@@ -29,7 +29,7 @@ export class NATSApi implements ICredentialType {
 		},
 		{
 			displayName: 'TLS Certificate',
-			name: 'tls.cert',
+			name: 'tlsCert',
 			type: 'string',
 			default: undefined,
 			placeholder: 'PEM Cert',
@@ -37,7 +37,7 @@ export class NATSApi implements ICredentialType {
 		},
 		{
 			displayName: 'TLS Key',
-			name: 'tls.key',
+			name: 'tlsKey',
 			type: 'string',
 			typeOptions: { password: true },
 			default: undefined,
@@ -46,7 +46,7 @@ export class NATSApi implements ICredentialType {
 		},
 		{
 			displayName: 'TLS CA Cert',
-			name: 'tls.ca',
+			name: 'tlsCa',
 			type: 'string',
 			default: undefined,
 			placeholder: 'PEM ca',
