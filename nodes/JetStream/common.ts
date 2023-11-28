@@ -1,6 +1,7 @@
 import { IAllExecuteFunctions } from "n8n-workflow";
 import { JetStreamClient, JetStreamOptions, NatsConnection, connect } from "nats";
 import { natsConnectionOptions } from "../common";
+import { defaultJsOptions } from "nats/lib/jetstream/jsbaseclient_api";
 
 interface JSConnection {
 	nats: NatsConnection
@@ -22,5 +23,7 @@ export const jsNatsConnection = async (func: IAllExecuteFunctions, idx: number):
 	if (jsOptions.domain === '') {
 		jsOptions.domain = undefined
 	}
-	return { nats, js: nats.jetstream(jsOptions) }
+
+
+	return { nats, js: nats.jetstream(defaultJsOptions(jsOptions)) }
 }
