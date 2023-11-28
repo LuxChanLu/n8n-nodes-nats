@@ -1,5 +1,5 @@
 {
-	"node": "n8n-nodes-nats.Nats",
+	"node": "n8n-nodes-nats.nats",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
 	"categories": ["Communication", "Development"],
