@@ -22,5 +22,5 @@ export const jsNatsConnection = async (func: IAllExecuteFunctions, idx: number):
 	if (jsOptions.domain === '') {
 		jsOptions.domain = undefined
 	}
-	return { nats, js: nats.jetstream() }
+	return { nats, js: nats.jetstream(jsOptions) }
 }
