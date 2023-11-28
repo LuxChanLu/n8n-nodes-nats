@@ -44,6 +44,7 @@ export async function natsCredTest(this: ICredentialTestFunctions, credential: I
 		const options = natsConnectionOptions(credential.data)
 		const nats = await connect(options)
 		await nats.rtt()
+		await nats.close()
 	} catch (error) {
 		return {
 			status: 'Error',
