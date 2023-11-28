@@ -176,8 +176,7 @@ export class JetStreamTrigger implements INodeType {
 		let acknowledgeMode = options.acknowledge ? options.acknowledge : 'immediately';
 
 		const jetStream = await jsNatsConnection(this, 0);
-		const jsStream = await jetStream.js.streams.get(stream);
-		const jsConsumer = await jsStream.getConsumer(consumer);
+		const jsConsumer = await jetStream.js.consumers.get(stream, consumer);
 		const messages = await jsConsumer.consume({ max_messages: parallelMessages });
 
 		const consume = async () => {

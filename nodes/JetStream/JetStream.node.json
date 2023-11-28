@@ -1,5 +1,5 @@
 {
-	"node": "n8n-nodes-nats.JetStream",
+	"node": "n8n-nodes-nats.jetstream",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
 	"categories": ["Communication", "Development"],
