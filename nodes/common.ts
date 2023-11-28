@@ -33,8 +33,17 @@ export function natsConnectionOptions(credentials: ICredentialDataDecryptedObjec
 }
 
 export async function natsCredTest(this: ICredentialTestFunctions, credential: ICredentialsDecrypted): Promise<INodeCredentialTestResult> {
+	if(!credential.data) {
+		return {
+			status: 'Error',
+			message: `Credential data is required`,
+		}
+	}
+
 	try {
-		await (await connect(credential.data)).rtt()
+		const options = natsConnectionOptions(credential.data)
+		const nats = await connect(options)
+		await nats.rtt()
 	} catch (error) {
 		return {
 			status: 'Error',
