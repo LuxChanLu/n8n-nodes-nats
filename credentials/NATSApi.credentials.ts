@@ -5,7 +5,7 @@ import { defaultOptions } from 'nats/lib/nats-base-client/options';
 const DefaultOptions = defaultOptions()
 const DefaultJsOptions = defaultJsOptions()
 
-export class NATSApi implements ICredentialType {
+export class NatsApi implements ICredentialType {
 	name = 'natsApi';
 
 	displayName = 'NATS API';

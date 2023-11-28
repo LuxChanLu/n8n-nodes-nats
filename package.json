@@ -1,6 +1,6 @@
 {
   "name": "@zetanova/n8n-nodes-nats",
-  "version": "1.1.3-rc2",
+  "version": "1.1.3-rc3",
   "description": "NATS Nodes for n8n",
   "keywords": [
     "n8n-community-node-package"
@@ -36,7 +36,7 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/NATSApi.credentials.js"
+      "dist/credentials/NatsApi.credentials.js"
     ],
     "nodes": [
       "dist/nodes/Nats/Nats.node.js",
