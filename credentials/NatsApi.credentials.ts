@@ -1,9 +1,11 @@
 import type { ICredentialType, INodeProperties } from 'n8n-workflow';
+import { defaultJsOptions } from 'nats/lib/jetstream/jsbaseclient_api';
 import { defaultOptions } from 'nats/lib/nats-base-client/options';
 
 const DefaultOptions = defaultOptions()
+const DefaultJsOptions = defaultJsOptions()
 
-export class NATSApi implements ICredentialType {
+export class NatsApi implements ICredentialType {
 	name = 'natsApi';
 
 	displayName = 'NATS API';
@@ -134,7 +136,7 @@ export class NATSApi implements ICredentialType {
 			displayName: '[JetStream] API Prefix',
 			name: 'jsApiPrefix',
 			type: 'string',
-			default: undefined,
+			default: DefaultJsOptions.apiPrefix,
 			placeholder: 'apiPrefix',
 			description: 'Prefix required to interact with JetStream. Must match server configuration.'
 		},
@@ -142,15 +144,15 @@ export class NATSApi implements ICredentialType {
 			displayName: '[JetStream] Timeout',
 			name: 'jsTimeout',
 			type: 'number',
-			default: DefaultOptions.timeout,
+			default: DefaultJsOptions.timeout,
 			placeholder: 'timeout',
 			description: 'Number of milliseconds to wait for a JetStream API request.'
 		},
 		{
-			displayName: '[JetStream] Timeout',
+			displayName: '[JetStream] Domain',
 			name: 'jsDomain',
 			type: 'string',
-			default: undefined,
+			default: DefaultJsOptions.domain,
 			placeholder: 'domain',
 			description: 'Name of the JetStream domain. This value automatically modifies the default JetStream apiPrefix.'
 		},

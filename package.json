@@ -30,7 +30,7 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/NATSApi.credentials.js"
+      "dist/credentials/NatsApi.credentials.js"
     ],
     "nodes": [
       "dist/nodes/Nats/Nats.node.js",

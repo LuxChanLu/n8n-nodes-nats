@@ -75,6 +75,7 @@ export class JetStream implements INodeType {
 				throw error;
 			}
 		}
+
 		await jetStream.nats.drain()
 		await jetStream.nats.close()
 		return this.prepareOutputData(returnData);
