@@ -186,27 +186,32 @@ export class JetStreamTrigger implements INodeType {
 					await message.ackAck()
 				}
 				try {
-					// Prepare message content
-					let content: IDataObject | string = message.string();
-
 					const item: INodeExecutionData = {
 						json: {},
 					};
+
 					if (options.contentIsBinary === true) {
 						item.binary = {
 							data: await this.helpers.prepareBinaryData(Buffer.from(message.data)),
 						};
-
-						item.json = message as unknown as IDataObject;
 					} else {
-						if (options.jsonParseBody === true) {
-							content = JSON.parse(content);
-						}
-						if (options.onlyContent === true) {
-							item.json = { data: content as IDataObject };
-						} else {
-							item.json = message as unknown as IDataObject;
-						}
+						const data = options.jsonParseBody === true
+								? message.json<IDataObject>()
+								: message.string();
+
+						item.json = { data: data };
+					}
+
+					if (options.onlyContent === true) {
+						//maybe normalize data
+						//item.json = item.json.data
+					} else {
+						//todo option for delivery info
+						item.json = {
+							...item.json,
+							subject: message.subject,
+							headers: { ...message.headers }
+						};
 					}
 
 					if (acknowledgeMode === 'executionFinishes' || acknowledgeMode === 'executionFinishesSuccessfully') {
