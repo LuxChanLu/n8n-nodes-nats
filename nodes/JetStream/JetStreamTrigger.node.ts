@@ -207,10 +207,20 @@ export class JetStreamTrigger implements INodeType {
 						//item.json = item.json.data
 					} else {
 						//todo option for delivery info
+
+						//copy header values
+						const headers:IDataObject = {}
+						if(message.headers) {
+							for(var entry of message.headers) {
+								const values = entry[1]
+								headers[entry[0]] = values.length == 1 ? values[0] : values
+							}
+						}
+
 						item.json = {
 							...item.json,
 							subject: message.subject,
-							headers: { ...message.headers }
+							headers: headers
 						};
 					}
 
