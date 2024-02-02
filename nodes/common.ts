@@ -3,7 +3,7 @@ import { Authenticator, ConnectionOptions, connect, credsAuthenticator, jwtAuthe
 
 export function natsConnectionOptions(credentials: ICredentialDataDecryptedObject): ConnectionOptions {
 	const { user, pass, token, seed, jwtSeed, jwt, creds, tlsCa, tlsCert, tlsKey, ...options } = credentials
-	const authenticators:Authenticator[] = []
+	const authenticators: Authenticator[] = []
 
 	if (user && (user as string).length > 0) {
 		authenticators.push(usernamePasswordAuthenticator(user as string, pass && (pass as string).length > 0 ? pass as string : undefined))
