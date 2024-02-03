@@ -1,6 +1,6 @@
 {
   "name": "@zetanova/n8n-nodes-nats",
-  "version": "1.1.4-rc2",
+  "version": "1.1.4-rc3",
   "description": "NATS Nodes for n8n",
   "keywords": [
     "n8n-community-node-package"
@@ -54,6 +54,7 @@
     "typescript": "~5.3.2"
   },
   "dependencies": {
-    "nats": "^2.18.0"
+    "nats": "^2.18.0",
+    "typedi": "^0.10.0"
   }
 }
