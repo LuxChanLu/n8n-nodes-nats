@@ -13,7 +13,7 @@ type ConnectionEntry = {
 
 const idleTimeout = 180_000
 
-@Service()
+@Service({ global: true })
 export class NatsService {
 
 	private connections = new Map<string, ConnectionEntry>()
@@ -23,12 +23,15 @@ export class NatsService {
 	}
 
 	async getConnection(func: IAllExecuteFunctions, credentials?:ICredentialDataDecryptedObject): Promise<NatsConnectionHandle> {
-		const id = func.getExecutionId() //todo require credentials id
+
+		//todo acquire n8n credentials id
+		//hack use the connection name as the id
+		credentials ??= await func.getCredentials('natsApi', 0)
+		const options = natsConnectionOptions(credentials)
+		const id = options.name ? options.name : func.getExecutionId()
 
 		let entry = this.connections.get(id)
 		if (!entry) {
-			credentials ??= await func.getCredentials('natsApi', 0)
-			const options = natsConnectionOptions(credentials)
 			const connection = await connect(options)
 			entry = {
 				id: id,
@@ -36,8 +39,9 @@ export class NatsService {
 				refCount: 1
 			}
 			this.connections.set(id, entry)
-		} else if (entry.refCount++ == 0) {
+		} else if (entry.refCount++ == 0 && entry.timer) {
 			clearTimeout(entry.timer)
+			entry.timer = undefined
 		}
 
 		const token = { id: id }
