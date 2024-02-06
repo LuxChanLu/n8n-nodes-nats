@@ -22,7 +22,7 @@ export class NatsService {
 	constructor() {
 	}
 
-	async getConnection(func: IAllExecuteFunctions, credentials?:ICredentialDataDecryptedObject): Promise<NatsConnectionHandle> {
+	async getConnection(func: IAllExecuteFunctions, credentials?: ICredentialDataDecryptedObject): Promise<NatsConnectionHandle> {
 
 		//todo acquire n8n credentials id
 		//hack use the connection name as the id
@@ -71,7 +71,11 @@ export class NatsService {
 
 		const js = nats.connection.jetstream(defaultJsOptions(jsOptions));
 
-		return { connection: nats.connection, js, [Symbol.dispose]: nats[Symbol.dispose] }
+		return {
+			connection: nats.connection,
+			js: js,
+			[Symbol.dispose]() { nats[Symbol.dispose]() }
+		}
 	}
 
 	release(token: Partial<{ id: string }>) {
@@ -102,8 +106,11 @@ export class NatsConnectionHandle implements Disposable {
 	}
 
 	[Symbol.dispose]() {
-		this.service.release(this.token)
-		this.token = {}
+		if (this.service) {
+			//todo how can this.service be undefined
+			this.service.release(this.token)
+			this.token = {}
+		}
 	}
 }
 
