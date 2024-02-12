@@ -10,10 +10,12 @@ import {
 	jetstreamDescription, jetstreamOperations
 } from './descriptions';
 
-import { jsNatsConnection } from './common';
+
 import { natsCredTest } from '../common';
 
 import * as Actions from './actions';
+import Container from 'typedi';
+import { NatsService } from '../Nats.service';
 
 export class JetStream implements INodeType {
 	description: INodeTypeDescription = {
@@ -56,13 +58,14 @@ export class JetStream implements INodeType {
 			this.sendResponse(items[0].json);
 			return [items];
 		}
-		const jetStream = await jsNatsConnection(this, 0);
+
+		using nats  = await Container.get(NatsService).getJetStream(this)
 
 		const returnData: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; ++i) {
 			try {
-				await (Actions.jetstream as any)[operation](this, jetStream.js, i, returnData)
+				await (Actions.jetstream as any)[operation](this, nats.js, i, returnData)
 			} catch (error) {
 				if (this.continueOnFail()) {
 					const executionData = this.helpers.constructExecutionMetaData(
@@ -76,8 +79,6 @@ export class JetStream implements INodeType {
 			}
 		}
 
-		await jetStream.nats.drain()
-		await jetStream.nats.close()
 		return this.prepareOutputData(returnData);
 	};
 }

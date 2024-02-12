@@ -10,10 +10,12 @@ import {
 	natsDescription, natsOperations
 } from './descriptions';
 
-import { natsConnection } from './common';
+
 import { natsCredTest } from '../common';
 
 import * as Actions from './actions';
+import Container from 'typedi';
+import { NatsService } from '../Nats.service';
 
 export class Nats implements INodeType {
 	description: INodeTypeDescription = {
@@ -52,13 +54,14 @@ export class Nats implements INodeType {
 		items = deepCopy(items);
 
 		const operation = this.getNodeParameter('operation', 0);
-		const nats = await natsConnection(this, 0)
+
+		using nats = await Container.get(NatsService).getConnection(this)
 
 		const returnData: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; ++i) {
 			try {
-				await (Actions.nats as any)[operation](this, nats, i, returnData)
+				await (Actions.nats as any)[operation](this, nats.connection, i, returnData)
 			} catch (error) {
 				if (this.continueOnFail()) {
 					const executionData = this.helpers.constructExecutionMetaData(
@@ -71,8 +74,6 @@ export class Nats implements INodeType {
 				throw error;
 			}
 		}
-		await nats.drain()
-		await nats.close()
 		return this.prepareOutputData(returnData);
 	};
 }

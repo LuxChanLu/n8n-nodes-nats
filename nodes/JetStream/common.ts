@@ -12,6 +12,7 @@ export const jsNatsConnection = async (func: IAllExecuteFunctions, idx: number):
 	const credentials = await func.getCredentials('natsApi', idx)
 	const options = natsConnectionOptions(credentials)
 	const nats = await connect(options)
+
 	const jsOptions:JetStreamOptions = {
 		apiPrefix: credentials['jsApiPrefix'] as string,
     timeout: credentials['jsTimeout'] as number,
